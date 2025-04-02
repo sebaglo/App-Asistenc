@@ -1,0 +1,11 @@
+<resources>
+    <string name="App_Asistenc">My asisten</string>
+
+    <string-array name="menus_options">
+        <item>Papas Fritas</item>
+        <item>Cazuela</item>
+        <item>Lentejas</item>
+        <item>Pollo con arroz</item>
+    </string-array>
+
+</resources>
