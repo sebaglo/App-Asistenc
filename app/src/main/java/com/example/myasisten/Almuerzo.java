@@ -48,8 +48,7 @@ public class Almuerzo extends AppCompatActivity {
         String fechaAlmuerzo = etFechaAlmuerzo.getText().toString();
         String menuAlmuerzo = spinnerMenuAlmuerzo.getSelectedItem().toString();
 
-        if (idAlmuerzo.isEmpty() || idUsuario.isEmpty() || fechaAlmuerzo.isEmpty()) {
-            // Mostrar mensaje de error si algún campo está vacío
+        if (idAlmuerzo.isEmpty() || idUsuario.isEmpty() || fechaAlmuerzo.isEmpty()){
             Toast.makeText(Almuerzo.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(Almuerzo.this, "Almuerzo Guardado: \n" +

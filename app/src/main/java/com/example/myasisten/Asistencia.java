@@ -14,9 +14,10 @@ public class Asistencia extends AppCompatActivity {
 
         TextView tvRutResult = findViewById(R.id.tvRutResult);
         String rut = getIntent().getStringExtra("rut");
+        String nombre = getIntent().getStringExtra("Nombre");
 
         if (rut != null && !rut.isEmpty()) {
-            tvRutResult.setText("RUT: " + rut);
+            tvRutResult.setText("Nombre: " + nombre + "\nRUT: " + (rut.isEmpty() ? "No válido" : rut));
         } else {
             tvRutResult.setText("RUT: No válido");
         }

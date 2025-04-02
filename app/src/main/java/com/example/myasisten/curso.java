@@ -1,5 +1,6 @@
 package com.example.myasisten;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -10,27 +11,31 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class curso extends AppCompatActivity {
 
-    private EditText etCursoId, etCursoNombre, etProfesorNombre, etParadocenteNombre;
-    private Button btnGuardarCurso;
+    private EditText etCursoNombre, etProfesorNombre, etParadocenteNombre;
+    private Button btnGuardarCurso, btnVerCurso;
     private TextView tvCursoId;
 
-    private static final String PREFS_NAME = "CoursePrefs"; // Nombre del archivo de preferencias
+    private static final String PREFS_NAME = "CoursePrefs";
     private static final String COURSE_ID_KEY = "currentCourseId";
-    private static int currentCourseId;
+    private static final String COURSES_LIST_KEY = "coursesList";
+    private int currentCourseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.curso);
 
-        tvCursoId= findViewById(R.id.tvCursoId);
-        etCursoId = findViewById(R.id.etCursoId);
+        tvCursoId = findViewById(R.id.tvCursoId);
         etCursoNombre = findViewById(R.id.etCursoNombre);
         etProfesorNombre = findViewById(R.id.etProfesorNombre);
         etParadocenteNombre = findViewById(R.id.etParadocenteNombre);
         btnGuardarCurso = findViewById(R.id.btnGuardarCurso);
+        btnVerCurso = findViewById(R.id.btnVerCurso);
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         currentCourseId = sharedPreferences.getInt(COURSE_ID_KEY, 1000);
@@ -43,32 +48,39 @@ public class curso extends AppCompatActivity {
                 guardarCurso();
             }
         });
+
+        btnVerCurso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(curso.this, ListadoCursoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void guardarCurso() {
-
         String cursoNombre = etCursoNombre.getText().toString();
         String profesorNombre = etProfesorNombre.getText().toString();
         String paradocenteNombre = etParadocenteNombre.getText().toString();
 
         if (cursoNombre.isEmpty() || profesorNombre.isEmpty() || paradocenteNombre.isEmpty()) {
-            // Mostrar un mensaje de error si algún campo está vacío
-            Toast.makeText(curso.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
         } else {
-            currentCourseId--;
-
-            tvCursoId.setText("Id del curso: " + currentCourseId);
-
             SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            // Guardar curso en la lista
+            Set<String> courses = sharedPreferences.getStringSet(COURSES_LIST_KEY, new HashSet<>());
+            courses.add("ID: " + currentCourseId + " - " + cursoNombre + " | Prof: " + profesorNombre + " | Paradocente: " + paradocenteNombre);
+            editor.putStringSet(COURSES_LIST_KEY, courses);
+
+            // Incrementar ID
+            currentCourseId++;
             editor.putInt(COURSE_ID_KEY, currentCourseId);
             editor.apply();
 
-            Toast.makeText(curso.this, "Curso Guardado: \n" +
-                    "ID: " + currentCourseId + "\n" +
-                    "Nombre: " + cursoNombre + "\n" +
-                    "Profesor: " + profesorNombre + "\n" +
-                    "Paradocente: " + paradocenteNombre, Toast.LENGTH_LONG).show();
+            tvCursoId.setText("ID del curso: " + currentCourseId);
+            Toast.makeText(this, "Curso Guardado", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.journeyapps.barcodescanner.ScanContract;
@@ -17,13 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class alumno extends AppCompatActivity {
-
     private TextView tvScanResult;
 
-    private final androidx.activity.result.ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(
+    @SuppressLint("SetTextI18n")
+    private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(
             new ScanContract(), result -> {
                 if (result.getContents() != null) {
-                    String scannedData = result.getContents();
+                    String scannedData = result.getContents().trim();
                     Log.d("ScannedData", "Scanned data: " + scannedData);
 
                     String[] extractedData = extractNameAndRut(scannedData);
@@ -32,7 +33,10 @@ public class alumno extends AppCompatActivity {
 
                     Log.d("ExtractedData", "Name: " + name + ", RUT: " + rut);
 
-                    tvScanResult.setText("Nombre: " + name + "\nRUT: " + (rut.isEmpty() ? "No válido" : rut));
+                    if(tvScanResult != null) {
+                        tvScanResult.setText("Nombre: " + name + "\nRUT: " + (rut.isEmpty() ? "No válido" : rut));
+                    }
+
 
                     Intent intent = new Intent(alumno.this, Asistencia.class);
                     intent.putExtra("name", name);
@@ -41,21 +45,20 @@ public class alumno extends AppCompatActivity {
                 }
             });
 
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alumno);
 
-        tvScanResult = findViewById(R.id.tvScanResult);
+        tvScanResult = findViewById(R.id.tvResult);
         Button btnScan = findViewById(R.id.btnScan);
 
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startQRCodeScanner();
-            }
-        });
+        btnScan.setOnClickListener(V -> startQRCodeScanner());
+
+        btnScan.postDelayed(this::startQRCodeScanner, 500);
     }
 
     private void startQRCodeScanner() {
@@ -68,15 +71,15 @@ public class alumno extends AppCompatActivity {
     }
 
     private String[] extractNameAndRut(String scannedData) {
-        Pattern pattern = Pattern.compile("([a-zA-Z ]+)(\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk])");
+        Pattern pattern = Pattern.compile("([\\p{L} ]+)\\s*(\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk])");
         Matcher matcher = pattern.matcher(scannedData);
 
-        String name = "";
-        String rut = "";
+        String name = "No encontrado";
+        String rut = "No valido";
 
         if (matcher.find()) {
-            name = matcher.group(1).trim();
-            rut = matcher.group(2);
+            name =(matcher.group(1)).trim();
+            rut = matcher.group(2).trim();
         }
 
         return new String[]{name, rut};
