@@ -44,4 +44,16 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="412dp"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnAtras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regresar"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBorrar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

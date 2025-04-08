@@ -15,14 +15,14 @@ public class Almuerzo extends AppCompatActivity {
 
     private EditText etIDAlmuerzo, etIDUsuario, etFechaAlmuerzo;
     private Spinner spinnerMenuAlmuerzo;
-    private Button btnGuardarAlmuerzo;
+    private Button btnGuardarAlmuerzo, btnAtras;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_almuerzo);
-
+        btnAtras = findViewById(R.id.btnAtras);
         etIDAlmuerzo = findViewById(R.id.etIDAlmuerzo);
         etIDUsuario = findViewById(R.id.etIDUsuario);
         etFechaAlmuerzo = findViewById(R.id.etFechaAlmuerzo);
@@ -33,6 +33,13 @@ public class Almuerzo extends AppCompatActivity {
                 R.array.menus_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMenuAlmuerzo.setAdapter(adapter);
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         btnGuardarAlmuerzo.setOnClickListener(new View.OnClickListener() {
             @Override

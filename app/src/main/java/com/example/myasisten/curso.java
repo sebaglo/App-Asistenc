@@ -1,5 +1,6 @@
 package com.example.myasisten;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import java.util.Set;
 public class curso extends AppCompatActivity {
 
     private EditText etCursoNombre, etProfesorNombre, etParadocenteNombre;
-    private Button btnGuardarCurso, btnVerCurso;
+    private Button btnGuardarCurso, btnVerCurso, btnAtras, btnBorrar;
     private TextView tvCursoId;
 
     private static final String PREFS_NAME = "CoursePrefs";
@@ -25,11 +26,14 @@ public class curso extends AppCompatActivity {
     private static final String COURSES_LIST_KEY = "coursesList";
     private int currentCourseId;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.curso);
 
+        setContentView(R.layout.curso);
+        btnBorrar = findViewById(R.id.btnBorrar);
+        btnAtras = findViewById(R.id.btnAtras);
         tvCursoId = findViewById(R.id.tvCursoId);
         etCursoNombre = findViewById(R.id.etCursoNombre);
         etProfesorNombre = findViewById(R.id.etProfesorNombre);
@@ -41,6 +45,20 @@ public class curso extends AppCompatActivity {
         currentCourseId = sharedPreferences.getInt(COURSE_ID_KEY, 1000);
 
         tvCursoId.setText("ID del curso: " + currentCourseId);
+
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         btnGuardarCurso.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +19,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class alumno extends AppCompatActivity {
+
     private TextView tvScanResult;
+    private Button btnAtras;
 
     @SuppressLint("SetTextI18n")
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(
             new ScanContract(), result -> {
-                if (result.getContents() != null) {
+                if (result.getContents() == null) {
+                    Toast.makeText(alumno.this, "Cancelado", Toast.LENGTH_LONG).show();
+                } else {
                     String scannedData = result.getContents().trim();
                     Log.d("ScannedData", "Scanned data: " + scannedData);
 
@@ -33,10 +38,9 @@ public class alumno extends AppCompatActivity {
 
                     Log.d("ExtractedData", "Name: " + name + ", RUT: " + rut);
 
-                    if(tvScanResult != null) {
+                    if (tvScanResult != null) {
                         tvScanResult.setText("Nombre: " + name + "\nRUT: " + (rut.isEmpty() ? "No válido" : rut));
                     }
-
 
                     Intent intent = new Intent(alumno.this, Asistencia.class);
                     intent.putExtra("name", name);
@@ -45,24 +49,26 @@ public class alumno extends AppCompatActivity {
                 }
             });
 
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alumno);
 
+        btnAtras = findViewById(R.id.btnAtras);
         tvScanResult = findViewById(R.id.tvResult);
         Button btnScan = findViewById(R.id.btnScan);
 
-        btnScan.setOnClickListener(V -> startQRCodeScanner());
+        btnScan.setOnClickListener(v -> startQRCodeScanner());
 
         btnScan.postDelayed(this::startQRCodeScanner, 500);
+
+        btnAtras.setOnClickListener(v -> onBackPressed());
     }
 
     private void startQRCodeScanner() {
         ScanOptions options = new ScanOptions();
+        options.setDesiredBarcodeFormats(ScanOptions.ONE_D_CODE_TYPES);
         options.setPrompt("Escanea un código");
         options.setBeepEnabled(true);
         options.setBarcodeImageEnabled(true);
@@ -75,10 +81,10 @@ public class alumno extends AppCompatActivity {
         Matcher matcher = pattern.matcher(scannedData);
 
         String name = "No encontrado";
-        String rut = "No valido";
+        String rut = "No válido";
 
         if (matcher.find()) {
-            name =(matcher.group(1)).trim();
+            name = matcher.group(1).trim();
             rut = matcher.group(2).trim();
         }
 

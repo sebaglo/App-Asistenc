@@ -1,5 +1,6 @@
 package com.example.myasisten;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,11 +23,23 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        Button btnSalir = findViewById(R.id.btnSalir);
         Button btnAlumno = findViewById(R.id.btnAlumno);
         Button btnCurso = findViewById(R.id.btnCurso);
         Button btnAsistencia = findViewById(R.id.btnAsistencia);
         Button btnAlmuerzo = findViewById(R.id.btnAlmuerzo);
         Button btnUsuario = findViewById(R.id.btnUsuario);
+
+        btnSalir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         btnAlumno.setOnClickListener(new View.OnClickListener() {
             @Override
