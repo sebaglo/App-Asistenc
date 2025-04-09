@@ -3,7 +3,6 @@ package com.example.myasisten;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +19,7 @@ public class Asistencia extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.asistencia);
 
-        btnVerAlumnos = findViewById(R.id.btnVerListado);
+        btnVerAlumnos = findViewById(R.id.btnVerlista);
         btnatras = findViewById(R.id.btnAtras);
         btnsi = findViewById(R.id.btnSi);
         btnno = findViewById(R.id.btnNo);
@@ -37,11 +36,19 @@ public class Asistencia extends AppCompatActivity {
         btnatras.setOnClickListener(v -> onBackPressed());
 
         btnsi.setOnClickListener(v -> {
+            AlumnoC alumno = new AlumnoC(nombre, rut, true);
+            AlumnoManager.getInstance().agregarAlumno(alumno);
             Toast.makeText(Asistencia.this, "Asistencia registrada para: " + nombre, Toast.LENGTH_SHORT).show();
         });
 
         btnno.setOnClickListener(v -> {
             Toast.makeText(Asistencia.this, "Ausencia registrada para: " + nombre, Toast.LENGTH_SHORT).show();
         });
+
+        btnVerAlumnos.setOnClickListener(v -> {
+            Intent intent = new Intent(Asistencia.this, ListadoAlumnos.class);
+            startActivity(intent);
+        });
+
     }
 }
