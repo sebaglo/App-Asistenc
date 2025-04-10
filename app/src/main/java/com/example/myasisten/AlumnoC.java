@@ -1,6 +1,8 @@
 package com.example.myasisten;
 
 public class AlumnoC {
+
+    private int codigo; // lo podrías usar solo si después recibís el ID desde el servidor
     private String nombre;
     private String rut;
     private boolean asistio;
@@ -9,6 +11,10 @@ public class AlumnoC {
         this.nombre = nombre;
         this.rut = rut;
         this.asistio = asistio;
+    }
+
+    public int getCodigo(){
+        return codigo;
     }
 
     public String getNombre() {

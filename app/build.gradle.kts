@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -36,12 +37,23 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.mlkit:barcode-scanning:17.3.0")
+    // Firebase BOM (maneja las versiones automáticamente)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    // ML Kit + código de barras
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    // Volley
+    implementation("com.android.volley:volley:1.2.1")
+
+    // Librerías comunes
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
