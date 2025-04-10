@@ -9,13 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Asistencia extends AppCompatActivity {
 
@@ -44,38 +37,13 @@ public class Asistencia extends AppCompatActivity {
         btnatras.setOnClickListener(v -> onBackPressed());
 
         btnsi.setOnClickListener(v -> {
-            AlumnoC alumno = new AlumnoC(nombre, rut, true);
-            AlumnoManager.getInstance().agregarAlumno(alumno);
+                    AlumnoC alumno = new AlumnoC(nombre, rut, true);
+                    AlumnoManager.getInstance().agregarAlumno(alumno);
 
-            // Mostrar mensaje local con código generado en la app (opcional)
-            Toast.makeText(Asistencia.this, "Asistencia local registrada para: " + nombre + "\nCódigo local: " + alumno.getCodigo(), Toast.LENGTH_SHORT).show();
+                    // Mostrar mensaje local con código generado en la app (opcional)
+                    Toast.makeText(Asistencia.this, "Asistencia local registrada para: " + nombre + "\nCódigo local: " + alumno.getCodigo(), Toast.LENGTH_SHORT).show();
 
-            // 🔽 Enviar a servidor PHP (Ferozo)
-            String url = "https://tusitio.com/insertar_alumno.php"; // Reemplazá con tu URL real
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                    response -> {
-                        if (!response.equals("error")) {
-                            Toast.makeText(getApplicationContext(), "Alumno registrado en servidor\nCódigo MySQL: " + response, Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Error al registrar en servidor", Toast.LENGTH_SHORT).show();
-                        }
-                    },
-                    error -> Toast.makeText(getApplicationContext(), "Error de red: " + error.getMessage(), Toast.LENGTH_LONG).show()
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("nombre", alumno.getNombre());
-                    params.put("rut", alumno.getRut());
-                    params.put("presente", "1");
-                    return params;
-                }
-            };
-
-            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-            queue.add(stringRequest);
-        });
+                });
             btnno.setOnClickListener(v -> {
                 Toast.makeText(Asistencia.this, "Ausencia registrada para: " + nombre, Toast.LENGTH_SHORT).show();
             });
@@ -84,7 +52,10 @@ public class Asistencia extends AppCompatActivity {
                 Intent intent = new Intent(Asistencia.this, ListadoAlumnos.class);
                 startActivity(intent);
             });
-
-        }
+    }
 }
+
+
+
+
 

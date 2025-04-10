@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "787679557049",
-    "project_id": "roadstore-93b00",
-    "storage_bucket": "roadstore-93b00.firebasestorage.app"
+    "project_number": "32219386711",
+    "project_id": "my-asisten-9b37a",
+    "storage_bucket": "my-asisten-9b37a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:787679557049:android:4df94fa57ff39f58e4b268",
+        "mobilesdk_app_id": "1:32219386711:android:9155e5149ed755c03f6412",
         "android_client_info": {
           "package_name": "com.example.myasisten"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAd-rTYqVCgqYHDcqF4GGELMsNQpq1J1E8"
+          "current_key": "AIzaSyD0fj3v9mIzJtqwnnF1eW4VnigWweSrj6Y"
         }
       ],
       "services": {

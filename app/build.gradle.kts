@@ -1,11 +1,13 @@
 plugins {
-    alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
+    id("com.android.application")
+    alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
     namespace = "com.example.myasisten"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.myasisten"
@@ -35,11 +37,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
-    // Firebase BOM (maneja las versiones automáticamente)
+
+    // Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth:23.2.0")
 
     // ML Kit + código de barras
     implementation("com.google.mlkit:barcode-scanning:17.3.0")
@@ -53,6 +56,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
