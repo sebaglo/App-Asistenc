@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background">
+
+    <!-- Campo para ingresar el correo electrónico -->
+    <android.widget.EditText
+        android:id="@+id/etemail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Correo electrónico"
+        android:textStyle="bold"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:importantForAccessibility="yes"
+        android:contentDescription="Campo para ingresar correo electrónico"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#000000" />
+
+    <!-- Campo para ingresar la contraseña -->
+    <android.widget.EditText
+        android:id="@+id/etContraseña"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:importantForAccessibility="yes"
+        android:contentDescription="Campo para ingresar la contraseña"
+        app:layout_constraintTop_toBottomOf="@id/etemail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#000000" />
+
+    <!-- Botón para registrar el usuario -->
+    <android.widget.Button
+        android:id="@+id/btnCrearCuenta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Crear Cuenta"
+        app:layout_constraintTop_toBottomOf="@id/etContraseña"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

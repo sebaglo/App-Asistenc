@@ -9,34 +9,80 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListadoAlumnos extends AppCompatActivity {
 
     private ListView listViewAlumnos;
     private Button btnvolver;
+    private List<AlumnoC> alumnosList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_alumnos);
 
-        // Inicializamos el ListView
+
         btnvolver = findViewById(R.id.btnRegresar);
         listViewAlumnos = findViewById(R.id.listViewAlumnos);
+        alumnosList = new ArrayList<>();
 
         btnvolver.setOnClickListener(v -> onBackPressed());
 
-        // Obtenemos los alumnos registrados
-        List<AlumnoC> alumnos = AlumnoManager.getInstance().obtenerAlumnos();
-
-        // Creamos un adaptador para llenar el ListView
-        AlumnoAdapter adapter = new AlumnoAdapter(alumnos);
-        listViewAlumnos.setAdapter(adapter);
+        cargarAlumnosDesdeServidor();
     }
 
-    // Adapter personalizado para mostrar los alumnos en la lista
+    private void cargarAlumnosDesdeServidor() {
+        new Thread(() -> {
+            try {
+
+                URL url = new URL("http://localhost/phpmyadmin/index.php?route=/sql&db=develop&table=asistencia&pos=0/obtener_alumnos.php");
+
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+
+                InputStreamReader reader = new InputStreamReader(urlConnection.getInputStream());
+                StringBuilder stringBuilder = new StringBuilder();
+                int data = reader.read();
+                while (data != -1) {
+                    stringBuilder.append((char) data);
+                    data = reader.read();
+                }
+
+                String jsonResponse = stringBuilder.toString();
+                JSONArray jsonArray = new JSONArray(jsonResponse);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject alumnoJson = jsonArray.getJSONObject(i);
+                    String nombre = alumnoJson.getString("name");
+                    String rut = alumnoJson.getString("rut");
+                    boolean presente = alumnoJson.getBoolean("presente");
+
+                    AlumnoC alumno = new AlumnoC(nombre, rut, presente);
+                    alumnosList.add(alumno);
+                }
+
+                runOnUiThread(() -> {
+                    AlumnoAdapter adapter = new AlumnoAdapter(alumnosList);
+                    listViewAlumnos.setAdapter(adapter);
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(ListadoAlumnos.this, "Error al cargar los datos", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+
     private class AlumnoAdapter extends ArrayAdapter<AlumnoC> {
 
         public AlumnoAdapter(List<AlumnoC> data) {
@@ -47,17 +93,14 @@ public class ListadoAlumnos extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             AlumnoC alumno = getItem(position);
 
-            // Inflamos la vista para cada item del ListView
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_alumno, parent, false);
             }
 
-            // Referenciamos los TextViews
             TextView tvNombre = convertView.findViewById(R.id.tvNombre);
             TextView tvRut = convertView.findViewById(R.id.tvRut);
             TextView tvAsistencia = convertView.findViewById(R.id.tvAsistencia);
 
-            // Asignamos los datos del alumno al item
             tvNombre.setText("Nombre: " + alumno.getNombre());
             tvRut.setText("RUT: " + alumno.getRut());
             tvAsistencia.setText("Asistencia: " + (alumno.isAsistio() ? "Sí" : "No"));
