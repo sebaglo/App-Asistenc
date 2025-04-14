@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnAsistencia = findViewById(R.id.btnAsistencia);
         Button btnAlmuerzo = findViewById(R.id.btnAlmuerzo);
         Button btnUsuario = findViewById(R.id.btnUsuario);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        Button btnPistola = findViewById(R.id.btnPistola);
 
         //Botono para salir de la aplicacion
         btnSalir.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+            }
+        });
+
+        //boton para ingresae a la seccion escaneo por pistola
+        btnPistola.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EscaneoPistola.class);
             }
         });
 

@@ -25,11 +25,12 @@
         android:id="@+id/btnCurso"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Curso"
-        app:layout_constraintTop_toBottomOf="@id/btnAlumno"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAlumno" />
 
     <Button
         android:id="@+id/btnAsistencia"
@@ -66,6 +67,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Salir"
+        app:layout_constraintTop_toBottomOf="@id/btnPistola"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnPistola"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Escaneo de Pistola"
         app:layout_constraintTop_toBottomOf="@id/btnAlmuerzo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

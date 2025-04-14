@@ -43,6 +43,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".EscaneoPistola"
+            android:exported="true"/>
+
         <activity android:name=".ListadoAlumnos"
             android:exported="true"/>
 
