@@ -45,12 +45,14 @@ public class Asistencia extends AppCompatActivity {
 
         //Boton para agregar si el alumnos esta presente
         btnsi.setOnClickListener(v -> {
+
             // Registra la asistencia en MySQL
             registrarAsistencia(nombre, rut, true);
         });
 
         //Boton para agregar si el alumnos esta ausente
         btnno.setOnClickListener(v -> {
+
             // Registra la ausencia en MySQL
             registrarAsistencia(nombre, rut, false);
         });
@@ -67,7 +69,7 @@ public class Asistencia extends AppCompatActivity {
         new Thread(() -> {
             try {
                 // URL de la API PHP
-                URL url = new URL("https://tuservidor.com/guardar_asistencia.php");
+                URL url = new URL("http://localhost/phpmyadmin/index.php?route=/sql&db=develop&table=asistencia&pos=0/guardar_asistencia.php");
 
                 // Configurar la conexión HTTP
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
