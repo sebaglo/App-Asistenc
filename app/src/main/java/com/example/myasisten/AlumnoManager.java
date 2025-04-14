@@ -19,8 +19,12 @@ public class AlumnoManager {
         return instancia;
     }
 
+    public void limpiarAlumnos() {
+
+    }
+
     public void agregarAlumno(AlumnoC alumno) {
-        alumnos.add(alumno); // ← aquí estaba el error: se escribía "Alumno" con mayúscula
+        alumnos.add(alumno);
     }
 
     public List<AlumnoC> obtenerAlumnos() {

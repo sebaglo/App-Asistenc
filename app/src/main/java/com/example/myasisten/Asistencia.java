@@ -15,6 +15,7 @@ import java.net.URL;
 
 public class Asistencia extends AppCompatActivity {
 
+    //Intanciamos varibles
     private Button btnsi, btnno, btnatras, btnVerAlumnos;
 
     @SuppressLint("MissingInflatedId")
@@ -23,6 +24,7 @@ public class Asistencia extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.asistencia);
 
+        //Buscamos variables e Instanciamos
         btnVerAlumnos = findViewById(R.id.btnVerlista);
         btnatras = findViewById(R.id.btnAtras);
         btnsi = findViewById(R.id.btnSi);
@@ -38,18 +40,22 @@ public class Asistencia extends AppCompatActivity {
             tvRutResult.setText("RUT: No válido");
         }
 
+        //Boton para volver al menu principal
         btnatras.setOnClickListener(v -> onBackPressed());
 
+        //Boton para agregar si el alumnos esta presente
         btnsi.setOnClickListener(v -> {
             // Registra la asistencia en MySQL
             registrarAsistencia(nombre, rut, true);
         });
 
+        //Boton para agregar si el alumnos esta ausente
         btnno.setOnClickListener(v -> {
             // Registra la ausencia en MySQL
             registrarAsistencia(nombre, rut, false);
         });
 
+        //Boton para ver la lista de alumnos
         btnVerAlumnos.setOnClickListener(v -> {
             Intent intent = new Intent(Asistencia.this, ListadoAlumnos.class);
             startActivity(intent);

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Almuerzo extends AppCompatActivity {
 
+    //Instanciamos las variables
     private EditText etIDAlmuerzo, etIDUsuario, etFechaAlmuerzo;
     private Spinner spinnerMenuAlmuerzo;
     private Button btnGuardarAlmuerzo, btnAtras;
@@ -22,6 +23,8 @@ public class Almuerzo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_almuerzo);
+
+        //Buscamos las variables y  las instanciamos
         btnAtras = findViewById(R.id.btnAtras);
         etIDAlmuerzo = findViewById(R.id.etIDAlmuerzo);
         etIDUsuario = findViewById(R.id.etIDUsuario);
@@ -29,11 +32,13 @@ public class Almuerzo extends AppCompatActivity {
         spinnerMenuAlmuerzo = findViewById(R.id.spinnerMenuAlmuerzo);
         btnGuardarAlmuerzo = findViewById(R.id.btnGuardarAlmuerzo);
 
+        //Construimos adaptador para el spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.menus_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMenuAlmuerzo.setAdapter(adapter);
 
+        //Boton para volver al menu principal
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +46,7 @@ public class Almuerzo extends AppCompatActivity {
             }
         });
 
+        //Boton para guardar
         btnGuardarAlmuerzo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +55,7 @@ public class Almuerzo extends AppCompatActivity {
         });
     }
 
+    //Construimos clase para almacenar los almuerzos en la lista
     private void guardarAlmuerzo() {
         String idAlmuerzo = etIDAlmuerzo.getText().toString();
         String idUsuario = etIDUsuario.getText().toString();

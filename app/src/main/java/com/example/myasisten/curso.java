@@ -30,8 +30,9 @@ public class curso extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.curso);
+
+        //Instanciamos varibles y buscamos
         btnBorrar = findViewById(R.id.btnBorrar);
         btnAtras = findViewById(R.id.btnAtras);
         tvCursoId = findViewById(R.id.tvCursoId);
@@ -46,13 +47,18 @@ public class curso extends AppCompatActivity {
 
         tvCursoId.setText("ID del curso: " + currentCourseId);
 
+        //Boton para eliminar datos
         btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                etCursoNombre.setText("");
+                etProfesorNombre.setText("");
+                etParadocenteNombre.setText("");
 
             }
         });
 
+        //Boton para volver a la pagina principal
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +66,7 @@ public class curso extends AppCompatActivity {
             }
         });
 
+        //Boton para guardar el curso
         btnGuardarCurso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +74,7 @@ public class curso extends AppCompatActivity {
             }
         });
 
+        //Boton para ver la lista del curso
         btnVerCurso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +84,7 @@ public class curso extends AppCompatActivity {
         });
     }
 
+    //Generamos la consulta para que se guarden los cursos
     private void guardarCurso() {
         String cursoNombre = etCursoNombre.getText().toString();
         String profesorNombre = etProfesorNombre.getText().toString();

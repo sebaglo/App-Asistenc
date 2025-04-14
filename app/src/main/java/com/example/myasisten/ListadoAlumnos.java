@@ -22,6 +22,7 @@ import java.util.List;
 
 public class ListadoAlumnos extends AppCompatActivity {
 
+    //Instanciamos varibles
     private ListView listViewAlumnos;
     private Button btnvolver;
     private List<AlumnoC> alumnosList;
@@ -31,16 +32,18 @@ public class ListadoAlumnos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_alumnos);
 
-
+        //Buscamos variables y las Instanciamos
         btnvolver = findViewById(R.id.btnRegresar);
         listViewAlumnos = findViewById(R.id.listViewAlumnos);
         alumnosList = new ArrayList<>();
 
+        //Boton para volver al menu principal
         btnvolver.setOnClickListener(v -> onBackPressed());
 
         cargarAlumnosDesdeServidor();
     }
 
+    //clase para guardar alumnos en sql
     private void cargarAlumnosDesdeServidor() {
         new Thread(() -> {
             try {
@@ -83,6 +86,7 @@ public class ListadoAlumnos extends AppCompatActivity {
         }).start();
     }
 
+    //Construimos clase para el adaptador
     private class AlumnoAdapter extends ArrayAdapter<AlumnoC> {
 
         public AlumnoAdapter(List<AlumnoC> data) {

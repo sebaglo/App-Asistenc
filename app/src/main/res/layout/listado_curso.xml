@@ -31,19 +31,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvListadoCursos"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:context=".Listado_Curso" />
-
-    <Button
-        android:id="@+id/btnBorrar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Borrar Datos"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="412dp"
-        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnAtras"
@@ -56,4 +45,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBorrar" />
+
+    <Button
+        android:id="@+id/btnBorrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Borrar Datos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="474dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

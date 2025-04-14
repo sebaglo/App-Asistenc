@@ -20,9 +20,11 @@ import java.util.regex.Pattern;
 
 public class alumno extends AppCompatActivity {
 
+    //Intanciamos las variables
     private TextView tvScanResult;
     private Button btnAtras;
 
+    //Construimos el codigo para el escaneo de las barras
     @SuppressLint("SetTextI18n")
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(
             new ScanContract(), result -> {
@@ -41,31 +43,35 @@ public class alumno extends AppCompatActivity {
                     if (tvScanResult != null) {
                         tvScanResult.setText("Nombre: " + name + "\nRUT: " + (rut.isEmpty() ? "No válido" : rut));
                     }
-
+                    //Intente para pasar de actividades
                     Intent intent = new Intent(alumno.this, Asistencia.class);
                     intent.putExtra("name", name);
                     intent.putExtra("rut", rut);
                     startActivity(intent);
                 }
             });
-
+    //Creamos una subclase pero esta para los alumnos
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alumno);
 
+        //Instanciamos las variables
         btnAtras = findViewById(R.id.btnAtras);
         tvScanResult = findViewById(R.id.tvResult);
         Button btnScan = findViewById(R.id.btnScan);
 
+        //Boton para escaneo
         btnScan.setOnClickListener(v -> startQRCodeScanner());
 
         btnScan.postDelayed(this::startQRCodeScanner, 500);
 
+        //Boton para regresar a la pantalla principal
         btnAtras.setOnClickListener(v -> onBackPressed());
     }
 
+    //Construimos el Codigo de escaneo
     private void startQRCodeScanner() {
         ScanOptions options = new ScanOptions();
         options.setDesiredBarcodeFormats(ScanOptions.ONE_D_CODE_TYPES);

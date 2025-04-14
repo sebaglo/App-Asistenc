@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class sesion extends AppCompatActivity {
 
+    //Instanciamos las variables
     private EditText etEmail, etPassword;
     private Button btnSesion, btnRegistro;
     private FirebaseAuth mAuth;
@@ -23,13 +24,16 @@ public class sesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_sesion);
 
+        //Variable para base de datos
         mAuth = FirebaseAuth.getInstance();
 
+        //Instanciamos las variables y las buscamos
         etEmail = findViewById(R.id.etemail);
         etPassword = findViewById(R.id.etContraseña);
         btnSesion = findViewById(R.id.btnIniciosesion);
         btnRegistro = findViewById(R.id.btnRegistro);
 
+        //Boton para inicar sesión
         btnSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +54,7 @@ public class sesion extends AppCompatActivity {
             }
         });
 
+        //Boton para registrar usuario
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +63,7 @@ public class sesion extends AppCompatActivity {
         });
     }
 
+    //Clase para iniciar sesión
     private void iniciarSesion(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {

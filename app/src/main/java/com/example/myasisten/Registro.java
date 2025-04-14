@@ -17,8 +17,9 @@ import java.util.Map;
 
 public class Registro extends AppCompatActivity {
 
+    //Instanciamos las variables
     private EditText etEmail, etPassword;
-    private Button btnregistro;
+    private Button btnregistro, btnvolver;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
 
@@ -28,13 +29,20 @@ public class Registro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        //Buscamos e instanciamos
+        btnvolver = findViewById(R.id.btnVolverLogin);
         etEmail = findViewById(R.id.etNuevoUsuario);
         etPassword = findViewById(R.id.etNuevaContraseña);
         btnregistro = findViewById(R.id.btnRegistrarUsuario);
 
+        //Base de datos FireBase
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
+        //Boton para volver al inicio de sesion
+        btnvolver.setOnClickListener(v -> onBackPressed());
+
+        //Boton de registro de usuario nuevo
         btnregistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

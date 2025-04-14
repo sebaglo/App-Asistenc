@@ -2,7 +2,11 @@ package com.example.myasisten;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +15,9 @@ import java.util.Set;
 
 public class ListadoCursoActivity extends AppCompatActivity {
 
+    //Instanciamos variables
     private TextView tvListaCursos;
+    private Button btnBorrar;
     private static final String PREFS_NAME = "CoursePrefs";
     private static final String COURSES_LIST_KEY = "coursesList";
 
@@ -20,7 +26,15 @@ public class ListadoCursoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listado_curso);
 
-        tvListaCursos = findViewById(R.id.tvListadoCursos); // Verifica que este ID sea el correcto
+        //Instanciamos las variables y las buscamos
+        tvListaCursos = findViewById(R.id.tvListadoCursos);
+        btnBorrar = findViewById(R.id.btnBorrar);
+
+        //Boton para eliminar los datos de la lista
+        btnBorrar.setOnClickListener(v -> {
+            AlumnoManager.getInstance().limpiarAlumnos();
+            Toast.makeText(this, "Lista Vaciada", Toast.LENGTH_SHORT).show();
+        });
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         // Usamos un Set vacío como valor predeterminado si no hay datos
